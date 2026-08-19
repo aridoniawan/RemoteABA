@@ -2,12 +2,43 @@ const API_URL = 'https://script.google.com/macros/s/AKfycbwcWrMws1lhl7pQ-likOHpm
 let clients = [];
 
 // DOM Elements
+const loginOverlay = document.getElementById('loginOverlay');
+const loginForm = document.getElementById('loginForm');
+const loginError = document.getElementById('loginError');
+const mainDashboard = document.getElementById('mainDashboard');
+
 const clientList = document.getElementById('clientList');
 const searchInput = document.getElementById('searchInput');
 const modal = document.getElementById('addClientModal');
 const clientForm = document.getElementById('clientForm');
 const modalTitle = document.getElementById('modalTitle');
 const submitBtn = clientForm.querySelector('button[type="submit"]');
+
+// --- AUTHENTICATION ---
+function checkAuth() {
+    const isAuth = localStorage.getItem('rustdesk_admin_auth');
+    if (isAuth === 'true') {
+        loginOverlay.style.display = 'none';
+        mainDashboard.style.display = 'block';
+        fetchClients();
+    } else {
+        loginOverlay.style.display = 'flex';
+        mainDashboard.style.display = 'none';
+    }
+}
+
+loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const pass = document.getElementById('adminPassword').value;
+    if (pass === 'locABA2026') {
+        localStorage.setItem('rustdesk_admin_auth', 'true');
+        loginError.style.display = 'none';
+        checkAuth();
+    } else {
+        loginError.style.display = 'block';
+        document.getElementById('adminPassword').value = '';
+    }
+});
 
 // Fetch and Render Clients
 async function fetchClients() {
@@ -155,4 +186,4 @@ async function deleteClient(id) {
 }
 
 // Initial Load
-fetchClients();
+checkAuth();

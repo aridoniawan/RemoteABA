@@ -14,7 +14,25 @@
         <div class="blob blob-2"></div>
     </div>
 
-    <div class="container">
+    <!-- Login Overlay -->
+    <div id="loginOverlay" class="login-overlay">
+        <div class="glass-panel login-box">
+            <div class="login-header">
+                <i class="fa-solid fa-lock" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                <h2>Admin Login</h2>
+                <p>Masukkan password untuk mengakses dashboard</p>
+            </div>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <input type="password" id="adminPassword" placeholder="Password" required>
+                    <div id="loginError" class="login-error" style="display: none; color: var(--danger); font-size: 0.9rem; margin-top: 0.5rem;">Password salah!</div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">Masuk</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container" id="mainDashboard" style="display: none;">
         <header class="glass-panel">
             <div class="header-content">
                 <div class="logo">
