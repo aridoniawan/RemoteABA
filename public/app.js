@@ -16,7 +16,7 @@ const submitBtn = clientForm.querySelector('button[type="submit"]');
 
 // --- AUTHENTICATION ---
 function checkAuth() {
-    const isAuth = localStorage.getItem('rustdesk_admin_auth');
+    const isAuth = sessionStorage.getItem('rustdesk_admin_auth');
     if (isAuth === 'true') {
         loginOverlay.style.display = 'none';
         mainDashboard.style.display = 'block';
@@ -31,7 +31,7 @@ loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const pass = document.getElementById('adminPassword').value;
     if (pass === 'locABA2026') {
-        localStorage.setItem('rustdesk_admin_auth', 'true');
+        sessionStorage.setItem('rustdesk_admin_auth', 'true');
         loginError.style.display = 'none';
         checkAuth();
     } else {
@@ -39,6 +39,11 @@ loginForm.addEventListener('submit', (e) => {
         document.getElementById('adminPassword').value = '';
     }
 });
+
+function logout() {
+    sessionStorage.removeItem('rustdesk_admin_auth');
+    checkAuth();
+}
 
 // Fetch and Render Clients
 async function fetchClients() {
