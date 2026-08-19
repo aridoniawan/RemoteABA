@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RustDesk Client Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="container">
+        <header class="glass-panel">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fa-solid fa-desktop"></i>
+                    <h1>RustDesk Admin Hub</h1>
+                </div>
+                <div class="header-actions">
+                    <a href="/install_rustdesk.bat" class="btn btn-secondary" download>
+                        <i class="fa-solid fa-download"></i> Download Client Auto-Installer
+                    </a>
+                    <button class="btn btn-primary" onclick="openModal('addClientModal')">
+                        <i class="fa-solid fa-plus"></i> Tambah Klien
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="glass-panel main-content">
+            <div class="search-bar">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Cari ID atau nama klien..." onkeyup="filterClients()">
+            </div>
+
+            <div class="table-container">
+                <table id="clientsTable">
+                    <thead>
+                        <tr>
+                            <th>ID RustDesk</th>
+                            <th>Nama Klien</th>
+                            <th>Keterangan / Lokasi</th>
+                            <th>Terakhir Diubah</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="clientList">
+                        <!-- Data will be loaded here dynamically -->
+                        <tr class="empty-state">
+                            <td colspan="5">Memuat data...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal Form -->
+    <div class="modal-overlay" id="addClientModal">
+        <div class="modal glass-panel">
+            <div class="modal-header">
+                <h2 id="modalTitle">Tambah Klien Baru</h2>
+                <button class="close-btn" onclick="closeModal('addClientModal')"><i class="fa-solid fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form id="clientForm">
+                    <input type="hidden" id="clientId">
+                    <div class="form-group">
+                        <label for="rustdeskId">ID RustDesk</label>
+                        <input type="text" id="rustdeskId" placeholder="Contoh: 123456789" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientName">Nama Klien / Perusahaan</label>
+                        <input type="text" id="clientName" placeholder="Contoh: PT. Abadi Jaya" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label for="clientNotes">Keterangan Tambahan</label>
+                        <input type="text" id="clientNotes" placeholder="Contoh: PC Kasir 1" autocomplete="off">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-text" onclick="closeModal('addClientModal')">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan Klien</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
